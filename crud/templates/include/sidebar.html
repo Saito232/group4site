@@ -1,0 +1,76 @@
+<!-- Navbar -->
+<nav class="fixed top-0 z-50 w-full bg-blue-900 border-gray-800">
+    <div class="px-3 py-3 lg:px-5 lg:pl-3">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+                <button id="menu-toggle" data-drawer-target="logo-sidebar" data-drawer-toggle="logo-sidebar" aria-controls="logo-sidebar" type="button" class="inline-flex items-center p-2 text-sm text-black-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200">
+                    <span class="sr-only">Open sidebar</span>
+                    <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                    </svg>
+                </button>
+  
+               
+                <a href="#" class="flex ms-2 md:me-24">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32" fill="currentColor" class="mr-3">
+                      <path d="M10.707 4.707a1 1 0 0 0-1.414 1.414l4.714 4.714a1 1 0 0 0 1.414-1.414L10.707 4.707zM9.707 3.707a2 2 0 0 1 2.828 2.828L4.929 13.768a2 2 0 0 1-2.828-2.828l7.606-7.606zM11 10.5a3.5 3.5 0 1 1 0 7 3.5 3.5 0 0 1 0-7z"/>
+                    </svg>
+                    <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap font-poppins ">DaWebsite</span>
+                </a>
+            </div>
+            
+            <div class="flex items-center">
+                <div class="flex items-center ms-3">
+                    <div>
+                        <button type="button" class="flex text-sm bg-gray-800 rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" aria-expanded="false" data-dropdown-toggle="dropdown-user">
+                            <span class="sr-only">Open user menu</span>
+                            <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </nav>
+  
+  <!-- Sidebar -->
+  <aside id="logo-sidebar" class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0" aria-label="Sidebar">
+    <div class="h-full px-3 pb-4 overflow-y-auto bg-white">
+        <ul class="space-y-2 font-medium">
+            <li>
+                <a href="/gender/list" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 group">
+                    <span class="ms-3">Gender List</span>
+                </a>
+            </li>
+            <li>
+                <a href="/gender/add" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 group">
+                    <span class="ms-3">Add Gender</span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/list" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 group">
+                    <span class="ms-3">User List</span>
+                </a>
+            </li>
+            <li>
+                <a href="/user/add" class="flex items-center p-2 text-black rounded-lg hover:bg-gray-100 group">
+                    <span class="ms-3">Add User</span>
+                </a>
+            </li>
+    
+                </a>
+            </li>
+        </ul>
+    </div>
+  </aside>
+  
+  <!-- JavaScript for Burger Menu -->
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('logo-sidebar');
+  
+    menuToggle.addEventListener('click', function () {
+        sidebar.classList.toggle('-translate-x-full');
+    });
+  </script>
+  

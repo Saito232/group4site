@@ -1,0 +1,114 @@
+{% extends "layout/base.html" %}
+
+{% block title %}
+Users List
+{% endblock title %}
+
+{% block content %}
+    {% include "include/sidebar.html" %}
+    {% include "include/toastmessage.html" %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <div class="p-2 sm:ml-64 mt-16 md:mt-14">
+        <form method="get" action="{% url 'user_list' %}" id="search-form">
+            <input type="text" id="search" name="search" value="{{ search_query }}" placeholder="Search users..." class="mb-4 p-2 rounded border border-gray-300">
+            {% if search_query %}
+                <a href="{% url 'user_list' %}" class="ml-2 bg-gray-300 text-black px-4 py-2 rounded">Clear</a>
+            {% endif %}
+        </form>
+
+        <div id="user-table-container" class="relative overflow-x-auto w-full table-auto rounded-sm shadow-sm">
+            <table class="w-full">
+                <thead class="text-xs text-left text-white bg-cyan-950">
+                    <tr>
+                        <th scope="col" class="px-6 py-3">Full Name</th>
+                        <th scope="col" class="px-6 py-3">Gender</th>
+                        <th scope="col" class="px-6 py-3">Birth Date</th>
+                        <th scope="col" class="px-6 py-3">Address</th>
+                        <th scope="col" class="px-6 py-3">Contact Number</th>
+                        <th scope="col" class="px-6 py-3">Email</th>
+                        <th scope="col" class="px-6 py-3">Action</th>
+                    </tr>
+                </thead>
+
+                <!-- Table Body that will be updated on form submit -->
+                <tbody id="user-table-body" class="text-xs text-black">
+                    {% for user in page_obj.object_list %}
+                    <tr class="hover:bg-gray-100 border-b border-gray-200">
+                        <td class="px-6 py-3">{{ user.full_name }}</td>
+                        <td class="px-6 py-3">{{ user.gender.gender }}</td>
+                        <td class="px-6 py-3">{{ user.birth_date }}</td>
+                        <td class="px-6 py-3">{{ user.address }}</td>
+                        <td class="px-6 py-3">{{ user.contact_number }}</td>
+                        <td class="px-6 py-3">{{ user.email }}</td>
+                        <td class="px-6 py-3">
+                            <div class="inline-flex shadow-sm">
+                                <a href="{% url 'edit_user' user.user_id %}" class="bg-green-600 px-3 py-2.5 font-medium text-white rounded-s-sm hover:bg-green-700">Edit</a>
+                                <a href="/user/delete/{{ user.user_id }}" 
+                                   class="bg-red-600 hover:bg-red-700 text-white text-sm font-semibold px-4 py-2 rounded-e-sm focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    Delete
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="7" class="text-center px-6 py-3">No users available</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <!-- Pagination Controls -->
+            <div class="flex justify-between mt-4">
+                <div class="flex items-center space-x-2">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1{% if search_query %}&search={{ search_query }}{% endif %}"
+                           class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-medium px-4 py-2 rounded transition">
+                            First
+                        </a>
+                        <a href="?page={{ page_obj.previous_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}"
+                           class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-medium px-4 py-2 rounded transition">
+                            Previous
+                        </a>
+                    {% endif %}
+                </div>
+                <div class="flex items-center">
+                    <span class="px-4 py-2 text-sm font-medium text-gray-700">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}{% if search_query %}&search={{ search_query }}{% endif %}"
+                           class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-medium px-4 py-2 rounded transition">
+                            Next
+                        </a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}{% if search_query %}&search={{ search_query }}{% endif %}"
+                           class="bg-white text-blue-600 border border-blue-600 hover:bg-blue-600 hover:text-white font-medium px-4 py-2 rounded transition">
+                            Last
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('search').addEventListener('input', function() {
+            var searchQuery = this.value;
+
+            fetch("{% url 'user_list' %}?search=" + searchQuery, {
+                method: 'GET',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('user-table-body').innerHTML = data.html;
+            });
+        });
+    </script>
+{% endblock %}

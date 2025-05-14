@@ -1,0 +1,80 @@
+{% extends "layout/base.html" %}
+
+{% block title %}Delete User Page{% endblock %}
+
+{% block content %}
+{% include "include/sidebar.html" %}
+{% include "include/toastmessage.html" %}
+
+<div class="flex pt-16">
+  <main class="flex-1 p-4 sm:ml-64">
+    <form action="/user/delete/{{ user.user_id }}/" method="post">
+      {% csrf_token %}
+      
+      <!-- Grid for user details -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+        <!-- Full Name -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Full Name</label>
+          <input type="text" value="{{ user.full_name }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Gender -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Gender</label>
+          <input type="text" value="{{ user.gender.gender }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Birth Date -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Birth Date</label>
+          <input type="text" value="{{ user.birth_date }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Address -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Address</label>
+          <input type="text" value="{{ user.address }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Contact Number -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Contact Number</label>
+          <input type="text" value="{{ user.contact_number }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Email -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Email</label>
+          <input type="text" value="{{ user.email }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+        <!-- Username -->
+        <div class="mx-auto w-full mb-2">
+          <label class="block text-sm font-medium mb-2">Username</label>
+          <input type="text" value="{{ user.username }}" readonly
+            class="bg-gray-100 px-3 py-2.5 border border-gray-300 text-black block text-sm font-medium rounded-sm w-full" />
+        </div>
+
+      </div>
+
+      <!-- Buttons -->
+      <div class="mx-auto w-full flex justify-end mt-4">
+        <a href="/user/list" class="bg-white text-sm font-medium text-black px-3 py-2.5 mr-1 rounded-sm hover:bg-gray-100">Go Back</a>
+        <button type="submit"
+          class="bg-red-600 hover:bg-red-700 text-sm font-medium text-white px-3 py-2.5 rounded-sm shadow-sm">
+          Delete User
+        </button>
+      </div>
+    </form>
+  </main>
+</div>
+
+{% endblock %}
